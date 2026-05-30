@@ -15,7 +15,7 @@ export default {
       supportsTablet: true,
       bundleIdentifier: 'com.moneyflowx.app',
     },
-    plugins: [],
+    plugins: ['expo-secure-store'],
     extra: {
       apiUrl: process.env.EXPO_PUBLIC_API_URL || 'https://moneyflowx.onrender.com',
       eas: {
