@@ -12,8 +12,18 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://money-flow-x.vercel.app',
+    'http://localhost:5173',
+    'http://localhost:3000',
+  ],
+  credentials: true,
+}));
 app.use(express.json());
+
+// Remove duplicate banks route
+
 
 // Static route for uploaded files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -33,7 +43,6 @@ app.use('/api/emi', require('./routes/emi'));
 app.use('/api/sip', require('./routes/sip'));
 app.use('/api/notes', require('./routes/notes'));
 app.use('/api/analytics', require('./routes/analytics'));
-app.use('/api/banks', require('./routes/banks'));
 
 // Error handler — must be last middleware
 app.use(errorHandler);

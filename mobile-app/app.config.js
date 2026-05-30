@@ -17,7 +17,7 @@ export default {
       package: 'com.moneyflowx.app'
     },
     extra: {
-      apiUrl: process.env.EXPO_PUBLIC_API_URL || 'http://localhost:5000',
+      apiUrl: process.env.EXPO_PUBLIC_API_URL || 'https://moneyflowx.onrender.com',
       eas: {
         projectId: '935b5785-2c02-4912-9f70-fb5785104faa'
       }
