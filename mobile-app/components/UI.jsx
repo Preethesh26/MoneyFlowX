@@ -1,6 +1,7 @@
 // Shared UI primitives for MoneyFlowX mobile
 import React from 'react'
 import { View, Text, TouchableOpacity, TextInput, StyleSheet, ActivityIndicator, ScrollView } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export const Card = ({ children, style, colors }) => (
   <View style={[{ backgroundColor: colors.card, borderRadius: 16, padding: 16, marginBottom: 12, borderWidth: 1, borderColor: colors.border }, style]}>
@@ -55,11 +56,21 @@ export const ProgressBar = ({ pct, color = '#6c63ff' }) => (
   </View>
 )
 
-export const ScreenWrapper = ({ children, colors, style }) => (
-  <ScrollView style={{ flex: 1, backgroundColor: colors.bg }} contentContainerStyle={[{ padding: 16, paddingBottom: 32 }, style]}>
-    {children}
-  </ScrollView>
-)
+export const ScreenWrapper = ({ children, colors, style }) => {
+  const insets = useSafeAreaInsets()
+  return (
+    <ScrollView
+      style={{ flex: 1, backgroundColor: colors.bg }}
+      contentContainerStyle={[{
+        padding: 16,
+        paddingTop: insets.top + 16,
+        paddingBottom: insets.bottom + 16,
+      }, style]}
+    >
+      {children}
+    </ScrollView>
+  )
+}
 
 export const PageHeader = ({ title, subtitle, colors, action }) => (
   <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>

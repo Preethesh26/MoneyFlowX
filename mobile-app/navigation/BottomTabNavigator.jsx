@@ -26,6 +26,7 @@ export default function BottomTabNavigator() {
           borderTopColor: colors.border,
           height: 64,
           paddingBottom: 8,
+          paddingTop: 4,
         },
         tabBarActiveTintColor: colors.accent,
         tabBarInactiveTintColor: colors.textMuted,

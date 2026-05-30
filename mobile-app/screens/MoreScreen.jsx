@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
 import { Btn } from '../components/UI'
@@ -13,15 +14,16 @@ const menuItems = [
 ]
 
 export default function MoreScreen({ navigation }) {
-  const { currentUser, logout, toggleTheme } = useAuth()
+  const { currentUser, logout } = useAuth()
   const { colors, theme, toggleTheme: themeToggle } = useTheme()
+  const insets = useSafeAreaInsets()
 
   const handleLogout = async () => {
     await logout()
   }
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.bg }} contentContainerStyle={{ padding: 16, paddingBottom: 32 }}>
+    <ScrollView style={{ flex: 1, backgroundColor: colors.bg }} contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16, paddingBottom: insets.bottom + 16 }}>
       {/* Profile card */}
       <View style={{ backgroundColor: colors.card, borderRadius: 20, padding: 20, marginBottom: 20, flexDirection: 'row', alignItems: 'center', gap: 14, borderWidth: 1, borderColor: colors.border }}>
         <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center' }}>
