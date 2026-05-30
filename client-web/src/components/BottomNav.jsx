@@ -11,7 +11,7 @@ const navItems = [
 
 export default function BottomNav() {
   return (
-    <nav className="bottom-nav" style={{ display: 'none' }} id="bottom-nav">
+    <nav className="bottom-nav" id="bottom-nav">
       {navItems.map(item => (
         <NavLink
           key={item.to}

@@ -613,12 +613,29 @@ body {
 /* ===== SIDEBAR RESPONSIVE ===== */
 .sidebar-desktop { display: block; }
 
-@media (max-width: 767px) {
-  .sidebar-desktop { display: none; }
-  #bottom-nav { display: flex !important; }
-  main { margin-left: 0 !important; }
+/* Main content area */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 220px;
+  min-width: 0;
 }
 
+.main-inner {
+  padding: calc(var(--topbar-height) + 24px) 28px 24px;
+  flex: 1;
+}
+
+/* Mobile: hide sidebar, show bottom nav, remove margin */
+@media (max-width: 767px) {
+  .sidebar-desktop { display: none !important; }
+  .main-content { margin-left: 0 !important; }
+  .main-inner { padding: calc(var(--topbar-height) + 16px) 16px calc(var(--nav-height) + 16px) !important; }
+  .bottom-nav { display: flex !important; }
+}
+
+/* Desktop: hide bottom nav */
 @media (min-width: 768px) {
-  #bottom-nav { display: none !important; }
+  .bottom-nav { display: none !important; }
 }
