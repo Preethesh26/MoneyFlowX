@@ -1,0 +1,11 @@
+{
+  "name": "moneyflowx",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MoneyFlowX — full-stack fintech platform",
+  "scripts": {
+    "server": "npm run dev --prefix server",
+    "web": "npm run dev --prefix client-web",
+    "mobile": "npx expo start --prefix mobile-app"
+  }
+}

@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+client-web/node_modules/
+server/node_modules/
+mobile-app/node_modules/
+
+# Environment files
+.env
+server/.env
+client-web/.env
+mobile-app/.env
+
+# Build output
+client-web/dist/
+dist/
+
+# Uploads
+server/uploads/*
+!server/uploads/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
