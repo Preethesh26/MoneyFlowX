@@ -35,7 +35,9 @@ export default function Register() {
   return (
     <div className="auth-page">
       <div className="auth-logo">
-        <div className="auth-logo-icon">💸</div>
+        <div className="auth-logo-icon">
+          <img src="/logo.png" alt="MoneyFlowX" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '14px' }} />
+        </div>
         <div className="auth-logo-name">MoneyFlowX</div>
         <div className="auth-logo-tagline">Smart Finance, Simplified</div>
       </div>

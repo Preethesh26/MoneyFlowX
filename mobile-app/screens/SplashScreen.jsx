@@ -1,7 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { View, Text, Animated, StyleSheet, Dimensions } from 'react-native'
-
-const { width } = Dimensions.get('window')
+import { View, Text, Animated, StyleSheet, Image } from 'react-native'
 
 export default function SplashScreen({ onFinish }) {
   const logoScale = useRef(new Animated.Value(0.3)).current
@@ -24,9 +22,11 @@ export default function SplashScreen({ onFinish }) {
   return (
     <Animated.View style={[styles.container, { opacity: screenOpacity }]}>
       <Animated.View style={[styles.logoWrap, { transform: [{ scale: logoScale }], opacity: logoOpacity }]}>
-        <View style={styles.logoCircle}>
-          <Text style={styles.logoEmoji}>💸</Text>
-        </View>
+        <Image
+          source={require('../assets/logo.png')}
+          style={styles.logoImage}
+          resizeMode="contain"
+        />
       </Animated.View>
       <Animated.View style={{ opacity: textOpacity, alignItems: 'center' }}>
         <Text style={styles.appName}>MoneyFlowX</Text>
@@ -45,22 +45,11 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   logoWrap: { alignItems: 'center' },
-  logoCircle: {
-    width: 110,
-    height: 110,
-    borderRadius: 30,
-    backgroundColor: '#1a1a2e',
-    borderWidth: 2,
-    borderColor: '#7c6bef',
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#7c6bef',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.4,
-    shadowRadius: 20,
-    elevation: 12,
+  logoImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 28,
   },
-  logoEmoji: { fontSize: 52 },
   appName: {
     color: '#ffffff',
     fontSize: 28,

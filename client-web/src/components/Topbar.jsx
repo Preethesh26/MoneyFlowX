@@ -14,7 +14,7 @@ export default function Topbar() {
   return (
     <header className="topbar" style={{ background: '#0f0f13', borderBottom: '1px solid #1e1e2a' }}>
       <div className="topbar-logo">
-        <div className="logo-icon" style={{ background: 'linear-gradient(135deg,#7c6bef,#a855f7)' }}>💸</div>
+        <img src="/logo.png" alt="MoneyFlowX" style={{ width: '36px', height: '36px', borderRadius: '10px', objectFit: 'contain' }} />
         MoneyFlowX
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>

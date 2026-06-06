@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, ScrollView, Alert, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Alert, StyleSheet, Image } from 'react-native'
 import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
 import { Input, Btn } from '../components/UI'
@@ -69,11 +69,11 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: '#0f0f13' }} contentContainerStyle={styles.container}>
-      <View style={styles.logoWrap}>
-        <View style={styles.logoCircle}><Text style={{ fontSize: 40 }}>💸</Text></View>
-        <Text style={styles.appName}>MoneyFlowX</Text>
-        <Text style={styles.tagline}>Smart Finance, Simplified</Text>
-      </View>
+        <View style={styles.logoWrap}>
+          <Image source={require('../assets/logo.png')} style={styles.logoImage} resizeMode="contain" />
+          <Text style={styles.appName}>MoneyFlowX</Text>
+          <Text style={styles.tagline}>Smart Finance, Simplified</Text>
+        </View>
       <View style={[styles.card, { backgroundColor: '#1a1a2e', borderColor: '#2e2e4a' }]}>
         <Text style={styles.title}>Welcome back</Text>
         <Text style={styles.subtitle}>Sign in to your account</Text>
@@ -109,7 +109,7 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: { padding: 24, alignItems: 'center', justifyContent: 'center', minHeight: '100%' },
   logoWrap: { alignItems: 'center', marginBottom: 32 },
-  logoCircle: { width: 80, height: 80, borderRadius: 22, backgroundColor: '#1a1a2e', borderWidth: 2, borderColor: '#7c6bef', alignItems: 'center', justifyContent: 'center', marginBottom: 12 },
+  logoImage: { width: 90, height: 90, borderRadius: 20, marginBottom: 12 },
   appName: { color: '#fff', fontSize: 24, fontWeight: '800' },
   tagline: { color: '#555570', fontSize: 13, marginTop: 4 },
   card: { width: '100%', borderRadius: 20, padding: 24, borderWidth: 1 },
