@@ -9,26 +9,16 @@ const {
   getMe,
   updateProfile,
   uploadProfilePicture,
+  forgotPassword,
+  resetPassword,
 } = require('../controllers/authController');
 
-// @route   POST /api/auth/register
-// @access  Public
 router.post('/register', register);
-
-// @route   POST /api/auth/login
-// @access  Public
 router.post('/login', login);
-
-// @route   GET /api/auth/me
-// @access  Private
 router.get('/me', auth, getMe);
-
-// @route   PUT /api/auth/profile
-// @access  Private
 router.put('/profile', auth, updateProfile);
-
-// @route   POST /api/auth/profile/picture
-// @access  Private
 router.post('/profile/picture', auth, uploadSingle, uploadProfilePicture);
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password', resetPassword);
 
 module.exports = router;

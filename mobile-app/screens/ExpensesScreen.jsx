@@ -6,9 +6,9 @@ import { ScreenWrapper, Card, PageHeader, Input, Btn, EmptyState, fmt } from '..
 import api from '../services/api'
 
 const DAILY_CATS = ['Food', 'Fuel', 'Tea', 'Snacks', 'Transport']
-const OTHER_CATS = ['Rent', 'Bills', 'Insurance', 'Hospital', 'Shopping', 'Travel', 'Education', 'Entertainment', 'Others']
+const OTHER_CATS = ['Rent', 'Bills', 'Insurance', 'Hospital', 'Shopping', 'Travel', 'Education', 'Entertainment', 'Other']
 const PAYMENT_METHODS = ['UPI', 'Cash', 'Card', 'Net Banking']
-const CAT_ICONS = { Food: '🍔', Fuel: '⛽', Tea: '☕', Snacks: '🍿', Transport: '🚌', Rent: '🏠', Bills: '📄', Insurance: '🛡️', Hospital: '🏥', Shopping: '🛍️', Travel: '✈️', Education: '🎓', Entertainment: '🎬', Others: '📦' }
+const CAT_ICONS = { Food: '🍔', Fuel: '⛽', Tea: '☕', Snacks: '🍿', Transport: '🚌', Rent: '🏠', Bills: '📄', Insurance: '🛡️', Hospital: '🏥', Shopping: '🛍️', Travel: '✈️', Education: '🎓', Entertainment: '🎬', Other: '📦' }
 
 export default function ExpensesScreen() {
   const { currentUser } = useAuth()
@@ -17,7 +17,7 @@ export default function ExpensesScreen() {
   const [banks, setBanks] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [typeFilter, setTypeFilter] = useState('All')
-  const [form, setForm] = useState({ type: 'Daily', category: 'Food', bankId: '', amount: '', paymentMethod: 'UPI', notes: '', date: new Date().toISOString().split('T')[0] })
+  const [form, setForm] = useState({ type: 'Daily', category: 'Food', customCategory: '', bankId: '', amount: '', paymentMethod: 'UPI', notes: '', date: new Date().toISOString().split('T')[0] })
 
   const currency = currentUser?.currency || 'INR'
   const load = () => {
@@ -29,10 +29,12 @@ export default function ExpensesScreen() {
 
   const handleAdd = async () => {
     if (!form.bankId || !form.amount) return Alert.alert('Error', 'Bank and amount are required')
+    const finalCategory = (form.type === 'Other' && form.category === 'Other' && form.customCategory?.trim())
+      ? form.customCategory.trim() : form.category
     try {
-      await api.post('/api/expenses', form)
+      await api.post('/api/expenses', { ...form, category: finalCategory })
       setShowModal(false)
-      setForm({ type: 'Daily', category: 'Food', bankId: '', amount: '', paymentMethod: 'UPI', notes: '', date: new Date().toISOString().split('T')[0] })
+      setForm({ type: 'Daily', category: 'Food', customCategory: '', bankId: '', amount: '', paymentMethod: 'UPI', notes: '', date: new Date().toISOString().split('T')[0] })
       load()
     } catch (err) { Alert.alert('Error', err.response?.data?.message || 'Failed') }
   }
@@ -111,6 +113,10 @@ export default function ExpensesScreen() {
                 </TouchableOpacity>
               ))}
             </View>
+            {/* Free-text for "Other" category */}
+            {form.type === 'Other' && form.category === 'Other' && (
+              <Input label="Specify (e.g. Salon, Medicine...)" colors={colors} value={form.customCategory || ''} onChangeText={v => setForm({ ...form, customCategory: v })} placeholder="Type category..." />
+            )}
             <Text style={{ color: colors.textSub, fontSize: 11, fontWeight: '600', marginBottom: 6, textTransform: 'uppercase' }}>Bank</Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
               {banks.map(b => (

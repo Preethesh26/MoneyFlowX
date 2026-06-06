@@ -18,6 +18,7 @@ import SIP from './pages/SIP'
 import Notes from './pages/Notes'
 import Analytics from './pages/Analytics'
 import More from './pages/More'
+import ResetPassword from './pages/ResetPassword'
 
 const SIDEBAR_WIDTH = '220px'
 
@@ -49,6 +50,7 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/login" element={currentUser ? <Navigate to="/" replace /> : <Login />} />
       <Route path="/register" element={currentUser ? <Navigate to="/" replace /> : <Register />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/" element={<ProtectedRoute><AppLayout><Dashboard /></AppLayout></ProtectedRoute>} />
       <Route path="/banks" element={<ProtectedRoute><AppLayout><Banks /></AppLayout></ProtectedRoute>} />
       <Route path="/expenses" element={<ProtectedRoute><AppLayout><Expenses /></AppLayout></ProtectedRoute>} />

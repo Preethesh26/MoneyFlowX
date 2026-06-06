@@ -8,6 +8,8 @@ export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showPass, setShowPass] = useState(false)
+  const [showConfirm, setShowConfirm] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -20,10 +22,15 @@ export default function Register() {
       navigate('/login')
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed')
-    } finally {
-      setLoading(false)
-    }
+    } finally { setLoading(false) }
   }
+
+  const EyeBtn = ({ show, toggle }) => (
+    <button type="button" onClick={toggle}
+      style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', color: 'var(--text-muted)' }}>
+      {show ? '🙈' : '👁️'}
+    </button>
+  )
 
   return (
     <div className="auth-page">
@@ -49,13 +56,21 @@ export default function Register() {
           </div>
           <div className="form-group">
             <label className="form-label">Password</label>
-            <input className="form-input" type="password" placeholder="Min 8 characters"
-              value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} required />
+            <div style={{ position: 'relative' }}>
+              <input className="form-input" type={showPass ? 'text' : 'password'} placeholder="Min 8 characters"
+                value={form.password} onChange={e => setForm({ ...form, password: e.target.value })}
+                style={{ paddingRight: '44px' }} required />
+              <EyeBtn show={showPass} toggle={() => setShowPass(p => !p)} />
+            </div>
           </div>
           <div className="form-group">
             <label className="form-label">Confirm Password</label>
-            <input className="form-input" type="password" placeholder="Repeat password"
-              value={form.confirm} onChange={e => setForm({ ...form, confirm: e.target.value })} required />
+            <div style={{ position: 'relative' }}>
+              <input className="form-input" type={showConfirm ? 'text' : 'password'} placeholder="Repeat password"
+                value={form.confirm} onChange={e => setForm({ ...form, confirm: e.target.value })}
+                style={{ paddingRight: '44px' }} required />
+              <EyeBtn show={showConfirm} toggle={() => setShowConfirm(p => !p)} />
+            </div>
           </div>
           <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
             {loading ? 'Creating...' : 'Create Account'}

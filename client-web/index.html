@@ -3,12 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#6c63ff" />
+    <meta name="theme-color" content="#0f0f1a" />
     <meta name="description" content="MoneyFlowX - Smart Finance, Simplified" />
     <title>MoneyFlowX</title>
+    <!-- SVG favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f0f1a'/><text y='.9em' font-size='80' x='10'>💸</text></svg>" />
+    <style>
+      #splash {
+        position: fixed; inset: 0;
+        background: #0f0f1a;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+      #splash.hide { opacity: 0; pointer-events: none; }
+      #splash-icon { font-size: 80px; margin-bottom: 16px; animation: pulse 1.2s ease-in-out infinite; }
+      #splash-name { font-family: -apple-system, sans-serif; font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #6c63ff, #43e97b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+      #splash-tag { font-family: -apple-system, sans-serif; font-size: 0.85rem; color: #6b6b8a; margin-top: 6px; }
+      @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
+    </style>
   </head>
   <body>
+    <div id="splash">
+      <div id="splash-icon">💸</div>
+      <div id="splash-name">MoneyFlowX</div>
+      <div id="splash-tag">Smart Finance, Simplified</div>
+    </div>
     <div id="root"></div>
+    <script>
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const s = document.getElementById('splash')
+          if (s) { s.classList.add('hide'); setTimeout(() => s.remove(), 500) }
+        }, 1500)
+      })
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
