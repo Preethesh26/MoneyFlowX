@@ -5,7 +5,7 @@ const navItems = [
   { to: '/', icon: '🏠', label: 'Home', end: true },
   { to: '/expenses', icon: '💳', label: 'Expenses' },
   { to: '/banks', icon: '🏦', label: 'Banks' },
-  { to: '/transfers', icon: '🔄', label: 'Transfer' },
+  { to: '/transfers', icon: '🔄', label: 'Transfers' },
   { to: '/more', icon: '⋯', label: 'More' },
 ]
 
