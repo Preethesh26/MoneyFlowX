@@ -80,9 +80,9 @@ export default function Goals() {
       )}
 
       {showModal && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)', zIndex: 200, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }} onClick={() => setShowModal(false)}>
-          <div style={{ background: '#111118', borderRadius: '24px 24px 0 0', padding: '24px', width: '100%', maxWidth: '500px' }} onClick={e => e.stopPropagation()}>
-            <div style={{ color: S.text, fontWeight: 700, fontSize: '1.1rem', marginBottom: '16px' }}>Add Goal</div>
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <div className="modal-header"><span className="modal-title">Add Goal</span></div>
             <form onSubmit={async e => { e.preventDefault(); await api.post('/api/goals', form); setShowModal(false); load() }}>
               <div style={{ marginBottom: '14px' }}><label style={labelStyle}>Goal Name</label><input style={inputStyle} placeholder="e.g. New Laptop" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required /></div>
               <div style={{ marginBottom: '14px' }}><label style={labelStyle}>Target Amount (₹)</label><input style={inputStyle} type="number" placeholder="50000" value={form.targetAmount} onChange={e => setForm({ ...form, targetAmount: e.target.value })} required /></div>
@@ -105,9 +105,9 @@ export default function Goals() {
       )}
 
       {showFunds && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)', zIndex: 200, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }} onClick={() => setShowFunds(null)}>
-          <div style={{ background: '#111118', borderRadius: '24px 24px 0 0', padding: '24px', width: '100%', maxWidth: '500px' }} onClick={e => e.stopPropagation()}>
-            <div style={{ color: S.text, fontWeight: 700, fontSize: '1.1rem', marginBottom: '16px' }}>Add Funds</div>
+        <div className="modal-overlay" onClick={() => setShowFunds(null)}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <div className="modal-header"><span className="modal-title">Add Funds</span></div>
             <form onSubmit={async e => { e.preventDefault(); await api.put(`/api/goals/${showFunds}`, { contribution: parseFloat(addAmount) }); setShowFunds(null); load() }}>
               <div style={{ marginBottom: '20px' }}><label style={labelStyle}>Amount (₹)</label><input style={inputStyle} type="number" placeholder="0.00" value={addAmount} onChange={e => setAddAmount(e.target.value)} required /></div>
               <button type="submit" style={{ width: '100%', background: '#059669', color: 'white', border: 'none', borderRadius: '14px', padding: '14px', fontWeight: 700, fontSize: '1rem', cursor: 'pointer' }}>Add Funds</button>

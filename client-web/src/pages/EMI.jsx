@@ -86,9 +86,9 @@ export default function EMI() {
       )}
 
       {showModal && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)', zIndex: 200, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }} onClick={() => setShowModal(false)}>
-          <div style={{ background: '#111118', borderRadius: '24px 24px 0 0', padding: '24px', width: '100%', maxWidth: '500px', maxHeight: '90vh', overflowY: 'auto' }} onClick={e => e.stopPropagation()}>
-            <div style={{ color: S.text, fontWeight: 700, fontSize: '1.1rem', marginBottom: '16px' }}>Add EMI</div>
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <div className="modal-header"><span className="modal-title">Add EMI</span></div>
             {error && <div style={{ background: 'rgba(255,107,138,0.1)', border: '1px solid rgba(255,107,138,0.3)', color: S.danger, padding: '10px 14px', borderRadius: '10px', fontSize: '0.82rem', marginBottom: '14px' }}>{error}</div>}
             <form onSubmit={async e => { e.preventDefault(); setError(''); try { await api.post('/api/emi', form); setShowModal(false); load() } catch (err) { setError(err.response?.data?.message || 'Error') }}}>
               {[['Loan Name', 'loanName', 'text', 'e.g. Home Loan'], ['Total Amount (₹)', 'totalAmount', 'number', '500000'], ['Monthly EMI (₹)', 'emiAmount', 'number', '5000'], ['Due Day (1-31)', 'dueDay', 'number', '5']].map(([lbl, key, type, ph]) => (

@@ -127,10 +127,8 @@ export default function Expenses() {
 
       {/* Add Modal */}
       {showModal && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)', zIndex: 200, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}
-          onClick={() => setShowModal(false)}>
-          <div style={{ background: '#111118', borderRadius: '24px 24px 0 0', padding: '24px', width: '100%', maxWidth: '600px', maxHeight: '92vh', overflowY: 'auto' }}
-            onClick={e => e.stopPropagation()}>
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
 
             {/* Type tabs */}
             <div style={{ display: 'flex', background: '#1a1a2e', borderRadius: '12px', padding: '4px', marginBottom: '20px' }}>
@@ -143,9 +141,9 @@ export default function Expenses() {
               ))}
             </div>
 
-            <div style={{ color: '#e0e0f0', fontWeight: 700, fontSize: '1.1rem', marginBottom: '16px' }}>
+            <div className="modal-header"><span className="modal-title">
               {form.txnType === 'Expense' ? 'Add Expense' : form.txnType === 'Income' ? 'Add Income' : 'Add Transfer'}
-            </div>
+            </span></div>
 
             {error && <div style={{ background: 'rgba(255,107,138,0.1)', border: '1px solid rgba(255,107,138,0.3)', color: '#ff6b8a', padding: '10px 14px', borderRadius: '10px', fontSize: '0.82rem', marginBottom: '14px' }}>{error}</div>}
 

@@ -92,11 +92,9 @@ export default function Banks() {
       )}
 
       {showModal && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)', zIndex: 200, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}
-          onClick={() => setShowModal(false)}>
-          <div style={{ background: '#111118', borderRadius: '24px 24px 0 0', padding: '24px', width: '100%', maxWidth: '500px', maxHeight: '90vh', overflowY: 'auto' }}
-            onClick={e => e.stopPropagation()}>
-            <div style={{ color: S.text, fontWeight: 700, fontSize: '1.1rem', marginBottom: '16px' }}>{editing ? 'Edit Bank' : 'Add Bank'}</div>
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <div className="modal-header"><span className="modal-title">{editing ? 'Edit Bank' : 'Add Bank'}</span></div>
             {error && <div style={{ background: 'rgba(255,107,138,0.1)', border: '1px solid rgba(255,107,138,0.3)', color: S.danger, padding: '10px 14px', borderRadius: '10px', fontSize: '0.82rem', marginBottom: '14px' }}>{error}</div>}
             <form onSubmit={handleSubmit}>
               <div style={{ marginBottom: '14px' }}>

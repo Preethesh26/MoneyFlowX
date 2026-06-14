@@ -59,9 +59,9 @@ export default function Notes() {
       )}
 
       {showModal && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)', zIndex: 200, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }} onClick={() => setShowModal(false)}>
-          <div style={{ background: '#111118', borderRadius: '24px 24px 0 0', padding: '24px', width: '100%', maxWidth: '500px' }} onClick={e => e.stopPropagation()}>
-            <div style={{ color: '#e0e0f0', fontWeight: 700, fontSize: '1.1rem', marginBottom: '16px' }}>Add Note</div>
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <div className="modal-header"><span className="modal-title">Add Note</span></div>
             <form onSubmit={async e => { e.preventDefault(); await api.post('/api/notes', form); setShowModal(false); load() }}>
               <div style={{ marginBottom: '14px' }}>
                 <label style={{ display: 'block', color: '#6b6b8a', fontSize: '0.72rem', fontWeight: 600, marginBottom: '7px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Title</label>
