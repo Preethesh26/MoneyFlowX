@@ -6,7 +6,7 @@ const navLinks = [
   { to: '/', icon: '🏠', label: 'Dashboard', end: true },
   { to: '/banks', icon: '🏦', label: 'Banks' },
   { to: '/expenses', icon: '💳', label: 'Expenses' },
-  { to: '/transfers', icon: '🔄', label: 'Transfers' },
+  { to: '/transfers', icon: '🔄', label: 'Bank Transfers' },
   { to: '/goals', icon: '🎯', label: 'Goals' },
   { to: '/emi', icon: '📋', label: 'EMI' },
   { to: '/sip', icon: '📈', label: 'SIP' },

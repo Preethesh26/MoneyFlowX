@@ -219,7 +219,7 @@ export default function Expenses() {
                 <div style={{ marginBottom: '14px' }}>
                   <label style={labelStyle}>{form.txnType === 'Income' ? '👤 Received From' : '👤 Transferred To'}</label>
                   <input style={{ ...inputStyle, borderColor: form.txnType === 'Income' ? '#05966955' : '#7c6bef55' }}
-                    placeholder={form.txnType === 'Income' ? 'E.g. Company, Rahul...' : 'E.g. Priya, Friend...'}
+                    placeholder={form.txnType === 'Income' ? 'E.g. Company,...' : 'E.g. Abc, friend...'}
                     value={form.personName}
                     onChange={e => setForm({ ...form, personName: e.target.value })} />
                 </div>

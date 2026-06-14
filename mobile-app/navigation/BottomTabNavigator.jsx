@@ -36,7 +36,7 @@ export default function BottomTabNavigator() {
       <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: (p) => <TabIcon emoji="🏠" {...p} /> }} />
       <Tab.Screen name="Expenses" component={ExpensesScreen} options={{ tabBarIcon: (p) => <TabIcon emoji="💳" {...p} /> }} />
       <Tab.Screen name="Banks" component={BanksScreen} options={{ tabBarIcon: (p) => <TabIcon emoji="🏦" {...p} /> }} />
-      <Tab.Screen name="Transfers" component={TransfersScreen} options={{ tabBarIcon: (p) => <TabIcon emoji="🔄" {...p} /> }} />
+      <Tab.Screen name="Bank Transfers" component={TransfersScreen} options={{ tabBarIcon: (p) => <TabIcon emoji="🔄" {...p} /> }} />
       <Tab.Screen name="More" component={MoreStack} options={{ tabBarIcon: (p) => <TabIcon emoji="⋯" {...p} /> }} />
     </Tab.Navigator>
   )

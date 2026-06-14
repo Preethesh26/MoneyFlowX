@@ -37,7 +37,7 @@ export default function Dashboard() {
   const quickActions = [
     { icon: '➕', label: 'Add Expense', path: '/expenses', bg: 'linear-gradient(135deg,#ff6b8a,#ff4757)' },
     { icon: '🏦', label: 'Add Bank', path: '/banks', bg: 'linear-gradient(135deg,#7c6bef,#a855f7)' },
-    { icon: '🔄', label: 'Transfer', path: '/transfers', bg: 'linear-gradient(135deg,#4facfe,#00f2fe)' },
+    { icon: '🔄', label: 'Bank Transfer', path: '/transfers', bg: 'linear-gradient(135deg,#4facfe,#00f2fe)' },
     { icon: '🎯', label: 'Goals', path: '/goals', bg: 'linear-gradient(135deg,#43e97b,#38f9d7)' },
   ]
 
