@@ -7,58 +7,68 @@ export default function Topbar() {
   const { currentUser, logout } = useAuth()
   const { theme, toggleTheme } = useTheme()
   const navigate = useNavigate()
-  const [dropdownOpen, setDropdownOpen] = useState(false)
-
+  const [open, setOpen] = useState(false)
   const initial = currentUser?.name?.charAt(0).toUpperCase() || '?'
 
   return (
-    <header className="topbar" style={{ background: '#0f0f13', borderBottom: '1px solid #1e1e2a' }}>
-      <div className="topbar-logo">
-        <img src="/logo.png" alt="MoneyFlowX" style={{ width: '36px', height: '36px', borderRadius: '10px', objectFit: 'contain' }} />
-        MoneyFlowX
+    <header className="topbar">
+      {/* Left — logo (visible on mobile only since sidebar handles desktop) */}
+      <div className="topbar-logo" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div className="logo-icon">
+          <img src="/logo.png" alt="MoneyFlowX" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+        </div>
+        <span style={{ fontWeight: 800, fontSize: '1rem', letterSpacing: '-0.2px' }}>MoneyFlowX</span>
       </div>
+
+      {/* Right controls */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme"
-          style={{ background: '#1a1a2e', border: '1px solid #2e2e4a', color: 'var(--text-primary)' }}>
+        <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
           {theme === 'dark' ? '☀️' : '🌙'}
         </button>
+
         {currentUser && (
           <div style={{ position: 'relative' }}>
-            <button onClick={() => setDropdownOpen(o => !o)}
-              style={{
-                display: 'flex', alignItems: 'center', gap: '8px',
-                background: '#1a1a2e', border: '1px solid #2e2e4a',
-                borderRadius: '24px', padding: '5px 12px 5px 5px',
-                cursor: 'pointer',
-              }}>
+            <button onClick={() => setOpen(o => !o)} style={{
+              display: 'flex', alignItems: 'center', gap: '8px',
+              background: '#13131e', border: '1px solid #222232',
+              borderRadius: '22px', padding: '5px 12px 5px 5px',
+              cursor: 'pointer',
+            }}>
               <div style={{
-                width: '30px', height: '30px', borderRadius: '50%',
-                background: 'linear-gradient(135deg,#7c6bef,#a855f7)',
+                width: '28px', height: '28px', borderRadius: '50%',
+                background: 'linear-gradient(135deg,#3b82f6,#8b5cf6)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontWeight: 700, color: 'white', fontSize: '0.85rem',
+                fontWeight: 700, color: 'white', fontSize: '0.8rem', flexShrink: 0,
               }}>{initial}</div>
-              <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#d0d0e0' }}>
+              <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#f2f2fa' }}>
                 {currentUser.name?.split(' ')[0]}
               </span>
-              <span style={{ fontSize: '0.65rem', color: '#555570' }}>▾</span>
+              <span style={{ fontSize: '0.6rem', color: '#50507a' }}>▾</span>
             </button>
-            {dropdownOpen && (
+
+            {open && (
+              <div onClick={() => setOpen(false)} style={{
+                position: 'fixed', inset: 0, zIndex: 199,
+              }} />
+            )}
+            {open && (
               <div style={{
-                position: 'absolute', top: '46px', right: 0,
-                background: '#1a1a2e', border: '1px solid #2e2e4a',
-                borderRadius: '14px', padding: '8px', minWidth: '168px',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.6)', zIndex: 300,
+                position: 'absolute', top: '44px', right: 0,
+                background: '#0e0e18', border: '1px solid #222232',
+                borderRadius: '14px', padding: '8px', minWidth: '180px',
+                boxShadow: '0 16px 48px rgba(0,0,0,0.6)', zIndex: 200,
               }}>
-                <div style={{ padding: '8px 12px', fontSize: '0.78rem', color: '#555570', borderBottom: '1px solid #2e2e4a', marginBottom: '4px' }}>
-                  {currentUser.email}
+                <div style={{ padding: '8px 12px 10px', borderBottom: '1px solid #1a1a28', marginBottom: '4px' }}>
+                  <div style={{ color: '#f2f2fa', fontWeight: 600, fontSize: '0.85rem' }}>{currentUser.name}</div>
+                  <div style={{ color: '#50507a', fontSize: '0.72rem', marginTop: '2px' }}>{currentUser.email}</div>
                 </div>
                 <button onClick={() => { logout(); navigate('/login') }} style={{
-                  width: '100%', padding: '10px 12px', background: 'none',
-                  border: 'none', color: '#ff6b8a', cursor: 'pointer',
-                  textAlign: 'left', fontSize: '0.88rem', fontWeight: 600,
-                  borderRadius: '8px',
+                  width: '100%', padding: '9px 12px', background: 'rgba(244,63,94,0.08)',
+                  border: '1px solid rgba(244,63,94,0.15)', borderRadius: '9px',
+                  color: '#f87171', fontWeight: 600, fontSize: '0.82rem',
+                  cursor: 'pointer', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '8px',
                 }}>
-                  🚪 Logout
+                  ↩ Sign Out
                 </button>
               </div>
             )}

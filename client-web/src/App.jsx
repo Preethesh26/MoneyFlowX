@@ -27,18 +27,15 @@ const AppLayout = ({ children }) => {
   if (!currentUser) return children
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
-      {/* Sidebar — hidden on mobile via CSS */}
       <div className="sidebar-desktop">
         <Sidebar />
       </div>
-      {/* Main content — no left margin on mobile */}
       <div className="main-content">
         <Topbar />
-        <main className="main-inner">
-          <div className="fade-in">{children}</div>
+        <main className="main-inner fade-in">
+          {children}
         </main>
       </div>
-      {/* Bottom nav — hidden on desktop via CSS */}
       <BottomNav />
     </div>
   )
