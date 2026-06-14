@@ -10,7 +10,7 @@ const OTHER_CATS = ['Rent', 'Bills', 'Insurance', 'Hospital', 'Shopping', 'Trave
 const CAT_ICONS = { Food: '🍔', Fuel: '⛽', Tea: '☕', Snacks: '🍿', Transport: '🚌', Rent: '🏠', Bills: '📄', Insurance: '🛡️', Hospital: '🏥', Shopping: '🛍️', Travel: '✈️', Education: '🎓', Entertainment: '🎬', Other: '📦' }
 const PAYMENT_METHODS = ['UPI', 'Cash', 'Card', 'Net Banking']
 
-const EMPTY = { txnType: 'Expense', title: '', type: 'Daily', category: 'Food', customCategory: '', bankId: '', amount: '', paymentMethod: 'UPI', date: new Date().toISOString().split('T')[0] }
+const EMPTY = { txnType: 'Expense', title: '', type: 'Daily', category: 'Food', customCategory: '', bankId: '', amount: '', paymentMethod: 'UPI', date: new Date().toISOString().split('T')[0], personName: '' }
 
 export default function ExpensesScreen() {
   const { currentUser } = useAuth()
@@ -44,7 +44,9 @@ export default function ExpensesScreen() {
         bankId: form.bankId,
         amount: form.amount,
         paymentMethod: form.paymentMethod,
-        notes: form.title,
+        notes: form.personName
+          ? `${form.title} | ${form.txnType === 'Income' ? 'From: ' : 'To: '}${form.personName}`
+          : form.title,
         date: form.date,
       })
       setShowModal(false)
@@ -192,9 +194,24 @@ export default function ExpensesScreen() {
                 ))}
               </View>
 
-              {/* Payment method */}
-              {form.txnType !== 'Transfer' && (
+              {/* Person name field */}
+              {(form.txnType === 'Income' || form.txnType === 'Transfer') && (
                 <>
+                  <Text style={styles.fieldLabel}>
+                    {form.txnType === 'Income' ? '👤 Received From' : '👤 Transferred To'}
+                  </Text>
+                  <TextInput
+                    style={[styles.field, { borderColor: form.txnType === 'Income' ? '#05966955' : '#7c6bef55' }]}
+                    placeholder={form.txnType === 'Income' ? 'E.g. Company, Rahul...' : 'E.g. Priya, Friend...'}
+                    placeholderTextColor="#555570"
+                    value={form.personName}
+                    onChangeText={v => setForm({ ...form, personName: v })}
+                  />
+                </>
+              )}
+
+              {/* Payment method */}
+              {form.txnType !== 'Transfer' && (                <>
                   <Text style={styles.fieldLabel}>Payment Method</Text>
                   <View style={{ flexDirection: 'row', gap: 7, marginBottom: 14 }}>
                     {PAYMENT_METHODS.map(m => (

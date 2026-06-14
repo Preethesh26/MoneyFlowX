@@ -7,7 +7,7 @@ const OTHER_CATS = ['Rent', 'Bills', 'Insurance', 'Hospital', 'Shopping', 'Trave
 const CAT_ICONS = { Food: '🍔', Fuel: '⛽', Tea: '☕', Snacks: '🍿', Transport: '🚌', Rent: '🏠', Bills: '📄', Insurance: '🛡️', Hospital: '🏥', Shopping: '🛍️', Travel: '✈️', Education: '🎓', Entertainment: '🎬', Other: '📦', Income: '💵', Transfer: '🔄' }
 const PAYMENT_METHODS = ['UPI', 'Cash', 'Card', 'Net Banking']
 
-const EMPTY = { txnType: 'Expense', title: '', type: 'Daily', category: 'Food', customCategory: '', bankId: '', amount: '', paymentMethod: 'UPI', notes: '', date: new Date().toISOString().split('T')[0] }
+const EMPTY = { txnType: 'Expense', title: '', type: 'Daily', category: 'Food', customCategory: '', bankId: '', amount: '', paymentMethod: 'UPI', notes: '', date: new Date().toISOString().split('T')[0], personName: '' }
 
 export default function Expenses() {
   const { currentUser } = useAuth()
@@ -42,7 +42,7 @@ export default function Expenses() {
       fd.append('bankId', form.bankId)
       fd.append('amount', form.amount)
       fd.append('paymentMethod', form.paymentMethod)
-      fd.append('notes', form.title || form.notes)
+      fd.append('notes', form.personName ? `${form.title} | ${form.txnType === 'Income' ? 'From: ' : 'To: '}${form.personName}` : (form.title || form.notes))
       fd.append('date', form.date)
       if (receipt) fd.append('image', receipt)
       await api.post('/api/expenses', fd, { headers: { 'Content-Type': 'multipart/form-data' } })
@@ -214,7 +214,16 @@ export default function Expenses() {
                 </div>
               </div>
 
-              {/* Payment method */}
+              {/* Person name — Income: Received From, Transfer: Transferred To */}
+              {(form.txnType === 'Income' || form.txnType === 'Transfer') && (
+                <div style={{ marginBottom: '14px' }}>
+                  <label style={labelStyle}>{form.txnType === 'Income' ? '👤 Received From' : '👤 Transferred To'}</label>
+                  <input style={{ ...inputStyle, borderColor: form.txnType === 'Income' ? '#05966955' : '#7c6bef55' }}
+                    placeholder={form.txnType === 'Income' ? 'E.g. Company, Rahul...' : 'E.g. Priya, Friend...'}
+                    value={form.personName}
+                    onChange={e => setForm({ ...form, personName: e.target.value })} />
+                </div>
+              )}
               {form.txnType !== 'Transfer' && (
                 <div style={{ marginBottom: '14px' }}>
                   <label style={labelStyle}>Payment Method</label>
